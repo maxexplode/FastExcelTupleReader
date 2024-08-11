@@ -1,6 +1,11 @@
 package com.maxexplode;
 
+import com.maxexplode.format.BaseFormat;
+import com.maxexplode.format.date.ExcelCustomDateFormat;
+import com.maxexplode.stereotype.ExcelCellName;
+import com.maxexplode.stereotype.ExcelRow;
 import lombok.Getter;
+import lombok.Setter;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -530,7 +535,7 @@ public class FastExcelTupleReader<T> implements Spliterator<T> {
                         declaredMethod.invoke(instance, String.valueOf(value));
                     }
                 }
-            } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+            } catch (NoSuchMethodException | IllegalArgumentException |  IllegalAccessException | InvocationTargetException e) {
                 throw new RuntimeException(e);
             }
         }
@@ -538,6 +543,7 @@ public class FastExcelTupleReader<T> implements Spliterator<T> {
 
     @Getter
     static private class ResultRow {
+        @Setter
         private String row;
         private final Map<Character, Object> positionsMap = new HashMap<>();
 
@@ -545,10 +551,6 @@ public class FastExcelTupleReader<T> implements Spliterator<T> {
             if (val != null) {
                 positionsMap.put(colPos, val);
             }
-        }
-
-        public void setRow(String row) {
-            this.row = row;
         }
 
         public boolean isEmpty() {

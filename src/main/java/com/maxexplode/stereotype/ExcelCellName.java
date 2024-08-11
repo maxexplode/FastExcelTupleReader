@@ -1,11 +1,12 @@
-package com.maxexplode;
+package com.maxexplode.stereotype;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-@Target(ElementType.TYPE)
+@Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface ExcelRow {
+public @interface ExcelCellName {
+    String value() default "";
 }

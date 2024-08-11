@@ -1,4 +1,4 @@
-package com.maxexplode;
+package com.maxexplode.format.date;
 
 import java.util.regex.Pattern;
 

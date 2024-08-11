@@ -1,4 +1,4 @@
-package com.maxexplode;
+package com.maxexplode.format;
 
 import java.util.Collections;
 import java.util.Set;

@@ -1,5 +1,7 @@
 package com.maxexplode;
 
+import com.maxexplode.stereotype.ExcelCellName;
+import com.maxexplode.stereotype.ExcelRow;
 import lombok.Data;
 
 import javax.xml.stream.XMLStreamException;
@@ -7,25 +9,29 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Date;
 import java.util.List;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
 
 public class Main {
     public static void main(String[] args) throws XMLStreamException, IOException {
-        URL resource = Main.class.getResource("/sample_data_small.xlsx");
-        assert resource != null;
-        FastExcelTupleReader<Person> fastExcelTupleReader = new FastExcelTupleReader<>(
-                resource.getPath(), Person.class, ReadOptions.builder()
-                .sheetIdx(1)
-                .dataRowIdx("1")
-                .build()
-        );
+        try {
+            URL resource = Main.class.getResource("/sample_data_small.xlsx");
+            assert resource != null;
+            FastExcelTupleReader<Person> fastExcelTupleReader = new FastExcelTupleReader<>(
+                    resource.getPath(), Person.class, ReadOptions.builder()
+                    .sheetIdx(1)
+                    .dataRowIdx("1")
+                    .build()
+            );
 
-        Stream<Person> personStream = fastExcelTupleReader.read();
+            Stream<Person> personStream = fastExcelTupleReader.read();
 
-        List<Person> personList = personStream.collect(Collectors.toList());
+            List<Person> personList = personStream.toList();
 
-        System.out.println("Sucessfully read : " + personList.size());
+            System.out.println("Successfully read : " + personList.size());
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     @Data
